@@ -5,6 +5,9 @@ import com.awesome.util.spring.RedisOperation;
 import com.awesome.util.util.Md5Util;
 import com.sso.client.entity.SSOUser;
 import com.sso.server.mapper.UserMapper;
+import com.sso.server.util.SSOConfig;
+import com.sso.server.vo.request.LoginReq;
+import com.sso.server.vo.response.LoginResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,22 +25,35 @@ public class UserService {
     @Autowired
     private RedisOperation redisOperation;
 
-    public String login(String name, String pwd) {
-        SSOUser user = userMapper.selectUserByNameAndPwd(name, Md5Util.digist(pwd));
+    @Autowired
+    private SSOService ssoService;
+
+    /**
+     * @return LoginResp 包含两个字段
+     * 1. TGT: 32 为字符串
+     * 2. ticket: ST-开头8位数字
+     */
+    public LoginResp login(LoginReq loginReq) {
+        SSOUser user = userMapper.selectUserByNameAndPwd(loginReq.getName(), Md5Util.digist(loginReq.getPwd()));
         if (user == null) {
             return null;
         }
-        String accessToken = UUID.randomUUID().toString().replace("-", "");
-        redisOperation.set(accessToken, user.getId() + "", 30 * 24 * 60 * 60);
-        return accessToken;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Md5Util.digist("123456"));
+        String TGT = UUID.randomUUID().toString().replace("-", "");
+        redisOperation.set(TGT, user.getId() + "", SSOConfig.EXPIRE_TIME_TGT);
+        String ST = ssoService.generateST(TGT);
+        LoginResp loginResp = new LoginResp();
+        loginResp.setTGT(TGT);
+        loginResp.setST(ST);
+        return loginResp;
     }
 
     public SSOUser getUserById(Integer uId) {
         return userMapper.selectUserById(uId);
     }
 
+    public SSOUser getUserByST(String ST) {
+        String TGT = redisOperation.get(ST);
+        String userId = redisOperation.get(TGT);
+        return getUserById(Integer.parseInt(userId));
+    }
 }

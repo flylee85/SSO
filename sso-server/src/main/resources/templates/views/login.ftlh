@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/element-ui@2.13.1/lib/index.js"></script>
     <script src="https://unpkg.com/axios@0.19.2/dist/axios.js"></script>
     <script src="https://unpkg.com/js-cookie@2.2.1/src/js.cookie.js"></script>
-
+    <script src="/static/js/utils.js"></script>
 </head>
 <body>
 <div id="app">
@@ -133,17 +133,11 @@
         })
       },
       handleLogin() {
-        const params = window.location.search.substring(1);
-        if (!params) {
+        let callbackUrl = getCallbackUrl();
+        if (!callbackUrl) {
           alert('回调地址获取失败，请返回原页面重试')
           return;
         }
-        const urlPair = params.split("&").filter(pair => pair.indexOf("callbackUrl=") > -1);
-        if (!urlPair || !urlPair.length) {
-          alert('回调地址获取失败，请返回原页面重试')
-          return;
-        }
-        const callbackUrl = urlPair[0].split("=")[1];
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
@@ -158,11 +152,13 @@
             }).then((res) => {
               this.loading = false
               const {data, msg} = res.data;
-              if (data && data['access-token']) {
-                Cookies.set('access-token', data['access-token'])
-                window.location = callbackUrl + "?" + data['access-token'];
+              if (data && data['TGT'] && data['ST']) {
+                // SSO 站点下种入 TGC Cookie
+                Cookies.set('TGC', data['TGT'], {expires: 10})
+                // 将 ST 票据传给前端
+                window.location.href = callbackUrl + "?ST=" + data['ST'];
               } else {
-                Message({message: msg || 'Error', type: 'error', duration: 5 * 1000})
+                alert(msg || 'Error')
               }
             }).catch(() => {
               this.loading = false
