@@ -4,12 +4,15 @@ package com.sso.server.controller;
 import com.awesome.util.http.ApiCode;
 import com.awesome.util.http.ApiResponse;
 import com.awesome.util.util.MapUtil;
+import com.google.common.base.Strings;
 import com.sso.client.entity.SSOUser;
+import com.sso.client.util.SSOUserUtils;
 import com.sso.server.service.SSOService;
 import com.sso.server.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,7 +62,7 @@ public class SSOController {
         return ApiResponse.ok(MapUtil.newMap().put("ST", ticket));
     }
 
-    @GetMapping(value = "valid_ST")
+    @GetMapping(value = "get_user_by_ST")
     @ResponseBody
     public SSOUser validST(@RequestParam String ST) {
         boolean valid = ssoService.validST(ST);
@@ -69,11 +72,15 @@ public class SSOController {
         return null;
     }
 
-
     @GetMapping(value = {"/callback"})
     public String callback() {
         return "views/callback";
     }
 
+    @GetMapping(value = {"/business_client_demo"})
+    @ResponseBody
+    public ApiResponse demo(@RequestParam String ST) {
+        return ApiResponse.ok(SSOUserUtils.getUser(ST));
+    }
 
 }
