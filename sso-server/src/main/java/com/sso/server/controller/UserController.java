@@ -1,7 +1,7 @@
 package com.sso.server.controller;
 
-import com.awesome.util.http.ApiResponse;
-import com.awesome.util.util.MapUtil;
+import com.github.mjd507.util.http.ApiResponse;
+import com.github.mjd507.util.util.MapUtil;
 import com.sso.client.util.SSOUserUtils;
 import com.sso.server.service.UserService;
 import com.sso.server.vo.request.LoginReq;

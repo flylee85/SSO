@@ -1,10 +1,9 @@
 package com.sso.server.controller;
 
 
-import com.awesome.util.http.ApiCode;
-import com.awesome.util.http.ApiResponse;
-import com.awesome.util.util.MapUtil;
-import com.google.common.base.Strings;
+import com.github.mjd507.util.http.ApiCode;
+import com.github.mjd507.util.http.ApiResponse;
+import com.github.mjd507.util.util.MapUtil;
 import com.sso.client.entity.SSOUser;
 import com.sso.client.util.SSOUserUtils;
 import com.sso.server.service.SSOService;
@@ -12,7 +11,6 @@ import com.sso.server.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,6 +1,6 @@
 package com.sso.server.service;
 
-import com.awesome.util.spring.RedisOperation;
+import com.github.mjd507.util.spring.RedisOperation;
 import com.google.common.base.Strings;
 import com.sso.server.util.SSOConfig;
 import org.apache.commons.lang3.RandomUtils;

@@ -1,9 +1,9 @@
 package com.sso.server.config;
 
-import com.awesome.util.http.ApiCode;
-import com.awesome.util.http.ApiResponse;
-import com.awesome.util.spring.RedisOperation;
-import com.awesome.util.util.JsonUtil;
+import com.github.mjd507.util.http.ApiCode;
+import com.github.mjd507.util.http.ApiResponse;
+import com.github.mjd507.util.spring.RedisOperation;
+import com.github.mjd507.util.util.JsonUtil;
 import com.google.common.base.Strings;
 import com.sso.client.entity.SSOUser;
 import com.sso.server.service.UserService;

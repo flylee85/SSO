@@ -1,6 +1,6 @@
 package com.sso.server.config;
 
-import com.awesome.util.spring.RedisOperation;
+import com.github.mjd507.util.spring.RedisOperation;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

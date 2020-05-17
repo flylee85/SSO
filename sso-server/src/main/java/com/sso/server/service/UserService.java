@@ -1,8 +1,8 @@
 package com.sso.server.service;
 
 
-import com.awesome.util.spring.RedisOperation;
-import com.awesome.util.util.Md5Util;
+import com.github.mjd507.util.spring.RedisOperation;
+import com.github.mjd507.util.util.Md5Util;
 import com.sso.client.entity.SSOUser;
 import com.sso.server.mapper.UserMapper;
 import com.sso.server.util.SSOConfig;

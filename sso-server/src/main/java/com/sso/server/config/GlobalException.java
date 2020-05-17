@@ -1,7 +1,7 @@
 package com.sso.server.config;
 
-import com.awesome.util.exception.BusinessException;
-import com.awesome.util.http.ApiCode;
+import com.github.mjd507.util.exception.BusinessException;
+import com.github.mjd507.util.http.ApiCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

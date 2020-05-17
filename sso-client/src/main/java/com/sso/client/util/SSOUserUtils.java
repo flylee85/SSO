@@ -1,10 +1,11 @@
 package com.sso.client.util;
 
 
-import com.awesome.util.http.HttpMethod;
-import com.awesome.util.http.HttpRequest;
-import com.awesome.util.http.HttpUtils;
-import com.awesome.util.util.MapUtil;
+
+import com.github.mjd507.util.http.HttpMethod;
+import com.github.mjd507.util.http.HttpRequest;
+import com.github.mjd507.util.http.HttpUtils;
+import com.github.mjd507.util.util.MapUtil;
 import com.sso.client.entity.SSOUser;
 
 /**
