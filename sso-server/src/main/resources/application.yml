@@ -34,3 +34,6 @@ logging:
   level:
     org.springframework.web: trace
 
+# 具体业务后端根据 sso-server 部署后配置
+sso:
+  server-url: http://localhost:10000
